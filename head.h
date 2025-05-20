@@ -17,3 +17,4 @@ int findCode(MorseNode* root, char symbol, char* buffer, int depth);
 void encodeText(MorseNode* root, const char* text, FILE* out);
 void decodeCode(MorseNode* root, const char* code, FILE* out);
 void decodeMorse(MorseNode* root, const char* morse, FILE* out);
+void convertTxt(MorseNode* root, const char* inputFile, const char* outputFile);

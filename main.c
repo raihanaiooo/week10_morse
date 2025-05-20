@@ -6,14 +6,15 @@ int main() {
     buildTree(root);
 
     int choice;
-    char input[256];
+    char input[1024];
 
     printf("Hasil Traversal Inorder\n");
     inorder(root);
     printf("\nMORSE CODE CONVERTER\n");
     printf("1. Encode (Text to Morse)\n");
     printf("2. Decode (Morse to Text)\n");
-    printf("Pilih opsi (1/2): ");
+    printf("3. Convert input.txt to Morse and save to out.txt\n");
+    printf("Pilih opsi (1/2/3): ");
     scanf("%d", &choice);
     getchar();
 
@@ -31,6 +32,8 @@ int main() {
         printf("Hasil Decode: ");
         decodeMorse(root, input, stdout);
         printf("\n");
+    } else if (choice == 3) {
+        convertTxt(root, "input.txt", "out.txt");
     } else {
         printf("Pilihan tidak valid.\n");
     }

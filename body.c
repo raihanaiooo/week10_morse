@@ -27,13 +27,13 @@ void insert(MorseNode* root, const char* code, char symbol) {
 
 void buildTree(MorseNode* root) {
     struct { char symbol; const char* code; } table[] = {
-        {'A', ".-"},   {'B', "-..."}, {'C', "-.-."}, {'D', "-.."},
-        {'E', "."},    {'F', "..-."}, {'G', "--."},  {'H', "...."},
-        {'I', ".."},   {'J', ".---"}, {'K', "-.-"},  {'L', ".-.."},
-        {'M', "--"},   {'N', "-."},   {'O', "---"},  {'P', ".--."},
-        {'Q', "--.-"}, {'R', ".-."},  {'S', "..."},  {'T', "-"},
-        {'U', "..-"},  {'V', "...-"}, {'W', ".--"},  {'X', "-..-"},
-        {'Y', "-.--"}, {'Z', "--.."},
+        {'A', "."},   {'B', ".."}, {'C', ".-"}, {'D', "..."},
+        {'E', "..-"},    {'F', ".-."}, {'G', ".--"},  {'H', "...."},
+        {'I', "...-"},   {'J', "..-."}, {'K', ".-.."},  {'L', ".--."},
+        {'M', ".---"},   {'N', "-"},   {'O', "-."},  {'P', "--"},
+        {'Q', "-.."}, {'R', "-.-"},  {'S', "--."},  {'T', "---"},
+        {'U', "-..."},  {'V', "-..-"}, {'W', "-.-."},  {'X', "-.--"},
+        {'Y', "--.."}, {'Z', "--.-"},
         {'1', ".----"},{'2', "..---"},{'3', "...--"},{'4', "....-"},
         {'5', "....."},{'6', "-...."},{'7', "--..."},{'8', "---.."},
         {'9', "----."},{'0', "-----"}, {' ', ".-..-."}
@@ -124,3 +124,27 @@ void decodeMorse(MorseNode* root, const char* morse, FILE* output) {
     }
 }
 
+void convertTxt(MorseNode* root, const char* inputFile, const char* outputFile) {
+    FILE* input = fopen(inputFile, "r");
+    FILE* output = fopen(outputFile, "w");
+
+    if (!input || !output) {
+        printf("Gagal membuka file %s atau %s.\n", inputFile, outputFile);
+        if (input) fclose(input);
+        if (output) fclose(output);
+        return;
+    }
+
+    char line[1024];
+    while (fgets(line, sizeof(line), input)) {
+        line[strcspn(line, "\n")] = 0;
+
+        encodeText(root, line, output);
+        fprintf(output, "\n");
+    }
+
+    fclose(input);
+    fclose(output);
+
+    printf("Konversi berhasil. Hasil disimpan di %s\n", outputFile);
+}
